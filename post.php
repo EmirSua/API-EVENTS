@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
     if (isset($_GET['type']))
     {
       //Mostrar resultados de los post
-      $sql = $dbConn->prepare("SELECT * FROM wp_posts WHERE post_status=:type");
+      $sql = $dbConn->prepare("SELECT * FROM wp_posts WHERE post_type=:type AND post_status='publish'");
       $sql->bindValue(':type', $_GET['type']);
       $sql->execute();
       header("HTTP/1.1 200 OK");
