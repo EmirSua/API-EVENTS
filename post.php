@@ -3,96 +3,31 @@ include "config.php";
 include "utils.php";
 
 
-$dbConn =  connect($db);
-$datos=[];
+$username = "root";
+$password = "";  // en mi caso tengo contraseña pero en casa caso introducidla aquí.
+$host = "localhost";
+$db = "dbs698552";
 
 /*
   listar todos los posts o solo uno
  */
 if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
-    if (isset($_GET['type']))
-    {
-      //Mostrar resultados de los post
-      $sql = $dbConn->prepare("SELECT * FROM wp_posts WHERE post_type=:type AND post_status='publish'");
-      $sql->bindValue(':type', $_GET['type']);
-      $sql->execute();
-      header("HTTP/1.1 200 OK");
-      foreach ($sql as $row){
-              $datos[]=$row;
-          }
-        print_r($datos);
-        $final=json_encode($datos);
-        echo $final;
-      //echo json_encode(  $sql->fetch(PDO::FETCH_ASSOC)  );
-      exit();
-	  }
-    else {
-      //Mostrar lista de post
-      $sql = $dbConn->prepare("SELECT * FROM wp_posts");
-      $sql->execute();
-      $sql->setFetchMode(PDO::FETCH_ASSOC);
-      header("HTTP/1.1 200 OK");
-      echo json_encode( $sql->fetchAll()  );
-      exit();
-	}
-}
-
-// Insertar un nuevo registro
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
-{
-    $input = $_POST;
-    $sql = "INSERT INTO posts
-          (title, status, content, user_id)
-          VALUES
-          (:title, :status, :content, :user_id)";
-    $statement = $dbConn->prepare($sql);
-    bindAllValues($statement, $input);
-    $statement->execute();
-    $postId = $dbConn->lastInsertId();
-    if($postId)
-    {
-      $input['id'] = $postId;
-      header("HTTP/1.1 200 OK");
-      echo json_encode($input);
-      exit();
-	 }
-}
-
-//Borrar
-if ($_SERVER['REQUEST_METHOD'] == 'DELETE')
-{
-	$id = $_GET['id'];
-  $statement = $dbConn->prepare("DELETE FROM posts where id=:id");
-  $statement->bindValue(':id', $id);
-  $statement->execute();
-	header("HTTP/1.1 200 OK");
-	exit();
-}
-
-//Actualizar
-if ($_SERVER['REQUEST_METHOD'] == 'PUT')
-{
-    $input = $_GET;
-    $postId = $input['id'];
-    $fields = getParams($input);
-
-    $sql = "
-          UPDATE posts
-          SET $fields
-          WHERE id='$postId'
-           ";
-
-    $statement = $dbConn->prepare($sql);
-    bindAllValues($statement, $input);
-
-    $statement->execute();
     header("HTTP/1.1 200 OK");
-    exit();
+    $conexion = mysqli_connect( $host, $username, "" ) or die ("No se ha podido conectar al servidor de Base de datos");
+    $db = mysqli_select_db( $conexion, $db ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
+    $sql="CALL `GetEvents`('2020-10-15'); ";
+    $resultado = mysqli_query( $conexion, $sql ) or die ( "Algo ha ido mal en la consulta a la base de datos");
+    $datos=[];
+    while ($columna = mysqli_fetch_assoc( $resultado ))
+    {
+        /*echo "<tr>";
+        echo "<td>" . $columna['Nombre_Evento'] . "</td> <td>" . $columna['Fecha'] . "</td>";
+        echo "</tr>";¨*/
+        array_push($datos,$columna);
+    }
+    print_r( json_encode($datos));
+    mysqli_close( $conexion );
 }
-
-
-//En caso de que ninguna de las opciones anteriores se haya ejecutado
-header("HTTP/1.1 400 Bad Request");
 
 ?>

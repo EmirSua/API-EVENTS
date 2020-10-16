@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6c41540d-d29e-40bf-b3b4-9a4743abec5c" name="Default Changelist" comment="" />
+    <list default="true" id="6c41540d-d29e-40bf-b3b4-9a4743abec5c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post.php" beforeDir="false" afterPath="$PROJECT_DIR$/post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils.php" beforeDir="false" afterPath="$PROJECT_DIR$/utils.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,7 +14,11 @@
   <component name="ComposerSettings">
     <execution />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1iTCao4dmxspAvIjB2lkYR50e4k" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -27,7 +35,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1601922298451</updated>
-      <workItem from="1601922312930" duration="20609000" />
+      <workItem from="1601922312930" duration="22397000" />
+      <workItem from="1602778115436" duration="1280000" />
+      <workItem from="1602788391447" duration="2178000" />
+      <workItem from="1602824181835" duration="5195000" />
     </task>
     <servers />
   </component>
